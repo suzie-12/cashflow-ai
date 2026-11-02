@@ -1,0 +1,25 @@
+CashFlow AI 评委演示数据
+
+全部数据均为虚构模拟数据，非真实公司或市场数据。
+
+使用文件：CashFlow_AI_Judges_Demo_2026-11-03.csv
+公司：ABC Lifestyle Store
+业务：中小零售，线上与线下
+币种：SGD（新加坡元）
+基准日期：2026-11-03
+历史范围：2026-08-06 至 2026-11-03
+预测范围：2026-11-04 至 2026-12-03
+当前现金：63972.87
+最低现金储备：35370
+
+现场操作：
+1. 登录网站，进入 Configuration。
+2. 在 Data Hub / Data Preview 中点击 Import CSV，选择本 CSV。
+3. 预览后点击 Use this dataset，才会正式应用数据。
+4. 进入 Dynamic Skill Orchestration，查看分析进度与技能选择。需要重跑时点击 Run Analysis。
+5. 若展示错误恢复，进入 Failure & Recovery Intelligence，点击 Run recovery。该页另行模拟客户回款延迟 15 天，并保留原始公司数据。
+
+建议提前将 CSV 下载到演示电脑。直接导入 CSV 原文件，无需先用 Excel 打开或另存。
+网站预测以浏览器当天日期计算。本文件为 2026-11-03 准备；换日期演示前应重新生成日期适配的数据，以免未来交易变成历史记录。
+
+格式验证：网站原生 normalizeBusinessCsv 已识别；无错误、无警告、无跳过行；必需信息完整度 100%。该完整度仅表示导入所需字段齐全，不代表分析准确性评分。

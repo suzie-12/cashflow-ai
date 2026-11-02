@@ -1,0 +1,17 @@
+const {chromium}=require('playwright');
+const fs=require('fs'),http=require('http'),assert=require('assert/strict');
+(async()=>{
+const server=http.createServer((req,res)=>{const f='site/'+(req.url.split('?')[0]==='/'?'index.html':req.url.split('?')[0].slice(1));if(!fs.existsSync(f)){res.writeHead(404);return res.end()}res.setHeader('content-type',f.endsWith('.js')?'text/javascript':'text/html');res.end(fs.readFileSync(f))});await new Promise(r=>server.listen(4174,'127.0.0.1',r));
+const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE_PATH ? {executablePath:process.env.BROWSER_EXECUTABLE_PATH} : {}),headless:true});try{
+const page=await browser.newPage({viewport:{width:1500,height:1100}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>{localStorage.setItem('cashflow-local-accounts-v1',JSON.stringify({'qa@test.com':{email:'qa@test.com',fullName:'QA User'}}));sessionStorage.setItem('cashflow-auth-email','qa@test.com')});await page.goto('http://127.0.0.1:4174/#failure-recovery');await page.waitForTimeout(700);
+assert.equal(await page.locator('#failure-recovery.active').count(),1);
+const nav=await page.locator('.nav>a').evaluateAll(es=>es.map(e=>e.dataset.page));assert.equal(nav.indexOf('failure-recovery')+1,nav.indexOf('reassess'));
+await page.evaluate(()=>{setBusinessState('stable');go('failure-recovery')});const initial=await page.evaluate(()=>JSON.stringify(businessData));await page.click('#fr-run');await page.waitForFunction(()=>document.querySelector('#failure-recovery .fr-status').textContent==='Recovery verified');assert.equal(await page.evaluate(()=>JSON.stringify(businessData)),initial);assert.equal(await page.locator('.fr-history li').count(),8);assert.equal(await page.locator('.fr-result').count(),6);
+await page.locator('[data-fr-select="4"]').first().click();assert.match(await page.locator('.fr-compare').innerText(),/Skill Orchestration/);await page.screenshot({path:'recovery-desktop.png',fullPage:true});
+await page.click('#fr-reset');assert.match(await page.locator('.fr-status').innerText(),/not corrected/);
+await page.evaluate(()=>{window.businessData={...businessData,records:[]};go('failure-recovery')});
+// Clear the active Overview pointer by reloading, then inject a missing-data source.
+await page.reload();await page.waitForTimeout(400);await page.evaluate(()=>{businessData={businessType:'No receipts',currency:'SGD',cash:1000,safe:500,period:30,records:[]};refreshFailureRecovery()});await page.click('#fr-run');await page.waitForFunction(()=>document.querySelector('.fr-status').textContent==='Recovery blocked');assert.equal(await page.locator('.fr-result').filter({hasText:'Verified'}).count(),0);
+await page.evaluate(()=>{setBusinessState('risk');go('failure-recovery')});await page.click('#fr-run');await page.waitForFunction(()=>document.querySelector('.fr-status').textContent==='Recovery verified');await page.setViewportSize({width:390,height:844});await page.screenshot({path:'recovery-mobile.png',fullPage:true});
+await page.reload();await page.waitForTimeout(400);assert.equal(await page.locator('#failure-recovery.active').count(),1);assert.match(await page.locator('.fr-status').innerText(),/not corrected/);assert.deepEqual(errors,[]);console.log('PASS: direct route, sidebar order, six linked findings, successful validation, unchanged shared records, blocked recovery, dataset reset, reload and mobile checks; zero runtime errors.');
+}finally{await browser.close();server.close()}})().catch(e=>{console.error(e);process.exit(1)});

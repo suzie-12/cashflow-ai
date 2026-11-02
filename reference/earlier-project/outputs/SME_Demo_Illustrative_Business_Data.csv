@@ -1,0 +1,30 @@
+date,type,description,amount
+2026-08-05,revenue,August consulting revenue,820000
+2026-08-12,cogs,August project delivery costs,205000
+2026-08-20,opex,August payroll and benefits,265000
+2026-08-28,opex,August office rent,78000
+2026-09-04,revenue,September consulting revenue,910000
+2026-09-11,cogs,September project delivery costs,228000
+2026-09-19,opex,September payroll and benefits,275000
+2026-09-28,opex,September office rent,78000
+2026-10-03,revenue,October consulting revenue,1040000
+2026-10-10,cogs,October project delivery costs,248000
+2026-10-20,opex,October payroll and benefits,286000
+2026-10-05,overdue_receivable,Overdue client invoice - verify collection status,320000
+2026-11-03,expense,November payroll,420000
+2026-11-06,receipt,Client A project milestone receipt,360000
+2026-11-10,supplier,Cloud and delivery supplier payment,320000
+2026-11-17,expense,Office rent,85000
+2026-11-21,receipt,Client B monthly service receipt,280000
+2026-11-27,inventory,Equipment and project materials purchase,260000
+2026-12-02,receipt,Client C project milestone receipt,520000
+2026-12-08,expense,December payroll,420000
+2026-12-15,supplier,Cloud and delivery supplier payment,310000
+2026-12-20,receipt,Client A recurring service receipt,240000
+2026-12-27,expense,Marketing campaign spend,90000
+2027-01-05,receipt,January project milestone receipt,500000
+2027-01-09,expense,January payroll,420000
+2027-01-16,inventory,Quarterly project materials purchase,350000
+2027-01-22,receipt,Client B renewal receipt,620000
+2027-01-26,expense,Office rent,85000
+2027-02-01,supplier,Cloud and delivery supplier payment,400000

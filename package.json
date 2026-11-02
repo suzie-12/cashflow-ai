@@ -1,0 +1,21 @@
+{
+  "name": "cashflow-ai-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-based SME cash-flow and adaptive skill orchestration prototype",
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "check": "node scripts/check.cjs",
+    "test": "node scripts/test.cjs",
+    "demo:generate": "node generate-judges-demo.cjs",
+    "deploy:preview": "wrangler pages deploy site --project-name sme-cashflow-ai --branch codex-github-export",
+    "demo:states": "node scripts/generate-state-fixtures.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1",
+    "wrangler": "4.156.2"
+  }
+}

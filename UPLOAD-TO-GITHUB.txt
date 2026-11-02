@@ -1,0 +1,13 @@
+GitHub 上传说明
+
+请使用本次统一合并包，不要把两个旧版本分别覆盖上传。
+1. 先取消 GitHub 页面里尚未提交的旧文件上传，返回仓库后重新进入 Upload files。
+2. 解压本 ZIP，打开 CashFlow-AI-Combined 文件夹。
+3. 全选该文件夹里面的全部内容，拖进 GitHub 上传区域。
+4. 等全部文件上传完成，点击 Commit changes。
+
+site/ 是唯一使用的最新版网站源码。
+reference/earlier-project/ 完整保留另一个聊天提供的源码及原始三组 CSV，供追溯参考，不应与 site/ 混在一起部署。
+demo-data/ 是可用的演示 CSV。docs/MERGE-REPORT.md 记录了合并规则。
+不要上传 .wrangler、work、node_modules 或个人浏览器数据。
+本次合并包未自动发布到线上网站。
